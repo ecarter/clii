@@ -1,0 +1,20 @@
+{
+  "author": "Erin Carter <hi@dnvsfn.com> (http://github.com/ecarter)",
+  "name": "cli-kit",
+  "description": "a simple command line interface toolkit",
+  "version": "0.0.0",
+  "homepage": "http://github.com/ecarter/cli-kit",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ecarter/cli-kit.git"
+  },
+  "main": "index",
+  "scripts": {
+    "test": "mocha"
+  },
+  "engines": {
+    "node": ">=0.4.11"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
