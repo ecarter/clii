@@ -1,16 +1,16 @@
 {
   "author": "Erin Carter <hi@dnvsfn.com> (http://github.com/ecarter)",
-  "name": "cli-kit",
+  "name": "clii",
   "description": "a simple command line interface toolkit",
   "version": "0.0.0",
-  "homepage": "http://github.com/ecarter/cli-kit",
+  "homepage": "http://github.com/ecarter/clii",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ecarter/cli-kit.git"
+    "url": "git://github.com/ecarter/clii.git"
   },
   "main": "index",
   "scripts": {
-    "test": "mocha -r should"
+    "test": "mocha"
   },
   "engines": {
     "node": ">=0.4.11"

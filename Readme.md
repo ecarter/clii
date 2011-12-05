@@ -1,4 +1,4 @@
-# cli-kit
+# clii
 
 a simple command line interface toolkit
 

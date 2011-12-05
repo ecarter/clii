@@ -1,4 +1,4 @@
-var cli = require('../lib/cli-kit');
+var cli = require('../lib/clii');
 
 var test_args
   , test_parse_args
@@ -38,7 +38,7 @@ function checkTestArgs (args, done) {
   done();
 }
 
-describe('cli-kit', function(){
+describe('clii', function(){
   
   before(function(done){
     var keys = '-' + test_option.key + ', --' + test_option.prop;

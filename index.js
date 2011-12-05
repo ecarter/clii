@@ -1,2 +1,2 @@
 
-module.exports = require('./lib/cli-kit');
+module.exports = require('./lib/clii');
