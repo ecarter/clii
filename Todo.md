@@ -1,7 +1,17 @@
 # Todo
 
+* combined arguments support: 
+  
+        $ clii -drc
+        $ clii -dv
+  
+* named arguments: 
+  
+        $ clii watch
+        $ clii files ./
+
 * docs
-* examples
+* **examples**
 * npm publish
 
 ## Tests
