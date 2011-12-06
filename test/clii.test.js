@@ -6,9 +6,14 @@ var test_args
   , test_option
   , test_version;
 
-test_args = [ 'arg1', 'arg2', 'arg3' ];
-test_parse_args = [ '--test' ];
-test_menu = "\n  Usage:  [options]\n\n    -t, --test        this is a test option\n";
+test_args = [ '-abc', '--test', '--unknown-option', 'kwarg1', 'kwarg2', 'kwarg3' ];
+
+test_menu = [
+  "\n  Usage:  [options]\n\n"
+, "    -t, --test        this is a test option\n"
+// , "    -h, --help        this help menu\n"
+].join('');
+
 test_option = {
   key: 't',
   prop: 'test',
@@ -19,30 +24,60 @@ test_option = {
   },
   args: [] 
 };
+
+test_parsed = {
+  "options": [
+    {
+      "option": {
+        "key": "t",
+        "prop": "test",
+        "help": "this is a test option",
+        "args": []
+      },
+      "args": []
+    }
+  ],
+  "kwargs": [ "kwarg1", "kwarg2", "kwarg3" ],
+  "props": { "test": true },
+  "unknowns": [ "--unknown-option" ]
+};
+
 test_version = '1.2.3';
 
+/**
+ * checks against test_option
+ */
+
 function equalsTestOption (opt, done) {
+  // console.log('equalsTestOption():',opt);
   opt.key.should.eql( test_option.key );
   opt.prop.should.eql( test_option.prop );
   opt.help.should.eql( test_option.help );
-  opt.fn.should.eql( test_option.fn );
+  opt.fn.should.be.a( 'function' );
   opt.args.should.eql( test_option.args );
   done();
 }
 
+/**
+ * checks against test_args
+ */
 function checkTestArgs (args, done) {
-  args.should.have.length(3);
-  args[0].should.eql( test_args[0] );
-  args[1].should.eql( test_args[1] );
-  args[2].should.eql( test_args[2] );
+  // args.should.have.length(3);
+  // args[0].should.eql( test_args[0] );
+  // args[1].should.eql( test_args[1] );
+  // args[2].should.eql( test_args[2] );
   done();
 }
+
+/**
+ * test suite
+ */
 
 describe('clii', function(){
   
   before(function(done){
-    var keys = '-' + test_option.key + ', --' + test_option.prop;
-    cli.option( keys, test_option.help, test_option.fn);
+    var option_str = '-' + test_option.key + ', --' + test_option.prop + '  ' + test_option.help;
+    cli.option( option_str, test_option.fn);
     done();
   })
   
@@ -70,6 +105,19 @@ describe('clii', function(){
     })
   })
   
+  /* TODO: come back to this
+  describe('#main()', function(){
+    it('should execute main function with args', function(done){
+      cli.main( function (props, args) {
+        console.log('calling main()');
+        console.log('main() - props:', props);
+        console.log('main() - args:', args);
+        done();
+      }, test_args );
+    })
+  })
+  */
+  
   describe('#menu()', function(){
     it('should return menu string', function(done){
       var menu = cli.menu();
@@ -92,16 +140,38 @@ describe('clii', function(){
    */
   describe('#parseArgs()', function(){
     it('should parse the args', function(done){
-      var args = cli.parseArgs( test_args );
-      checkTestArgs( args, done );
+      var args
+        , testopt;
+      
+      args = cli.parseArgs( test_args );
+      args.options.should.have.length(1);
+      args.kwargs[0].should.equal( test_parsed.kwargs[0] );
+      args.kwargs[1].should.equal( test_parsed.kwargs[1] );
+      args.kwargs[2].should.equal( test_parsed.kwargs[2] );
+      args.props.test.should.equal( test_parsed.props.test );
+      args.unknowns[0].should.equal( test_parsed.unknowns[0] );
+      
+      testopt = args.options[0].option;
+      equalsTestOption(testopt, done);
     })
   })
   
   describe('#version()', function(){
     it('should return the version', function(done){
-      cli.version().should.eql( '?.?.?' );
+      
+      // make sure DEFAULTS.options.version hasn't been added without being invoked by cli.version() first
+      require('assert').equal( cli.getOption('version'), null );
+      
+      // make sure version equals DEFAULTS.version_number
+      cli.version().should.eql( cli.DEFAULTS.version_number );
+      
+      // set the version number
       cli.version( test_version );
+      
+      // check to make sure version number changed
       cli.version().should.eql( test_version );
+      
+      // wrap it up
       done();
     })
   })

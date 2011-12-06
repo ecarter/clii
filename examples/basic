@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+var cli = require('../');
+
+cli
+  .name('basic')
+  .version('0.0.1')
+  .opt('-a, --one <string> [path]  the first option',
+    function(args){ 
+      console.log('one args:', JSON.stringify(args));
+    })
+    
+  .opt('-b, --two [number]  the second option',
+    function(args){ 
+      console.log('two args:', JSON.stringify(args));
+    })
+    
+  .opt('-c, --three [arg1|arg2|arg3]  the third option',
+    function(args){ 
+      console.log('three args:', JSON.stringify(args));
+    })
+    
+  .opt('--four  the fourth option')
+  .opt('--five')
+  
+  .run( function(props,args) {
+    console.log('props:', JSON.stringify(props,null,'  '));
+    console.log('args:', JSON.stringify(args,null,'  '));
+  })
