@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+
+var cli = require('../');
+
+function main (props, args) {
+  console.log('.run()');
+  console.log('  name:',this.name());
+  console.log('  version:',this.version());
+  console.log('  this:',JSON.stringify(this));
+  console.log('  props:',props);
+  console.log('  args:',args);
+}
+
+console.log('\n','basic-chain ---------------------------------- ','\n');
+
+cli('basic-chain example')
+  .version('0.0.1')
+  .opt('-a, --one <string> [path]  the first option',
+    function(args){ 
+      console.log('one args:', JSON.stringify(args));
+    })
+    
+  .opt('-b, --two [number]  the second option',
+    function(args){ 
+      console.log('two args:', JSON.stringify(args));
+    })
+    
+  .opt('-c, --three [arg1|arg2|arg3]  the third option',
+    function(args){ 
+      console.log('three args:', JSON.stringify(args));
+    })
+    
+  .opt('--four  the fourth option')
+  .opt('--five')
+  
+  .run(main)
