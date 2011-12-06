@@ -1,4 +1,4 @@
-var cli = require('../lib/clii');
+var cli = require('../lib/clii')();
 
 var test_args
   , test_parse_args
@@ -163,7 +163,7 @@ describe('clii', function(){
       require('assert').equal( cli.getOption('version'), null );
       
       // make sure version equals DEFAULTS.version_number
-      cli.version().should.eql( cli.DEFAULTS.version_number );
+      cli.version().should.eql('?.?.?');
       
       // set the version number
       cli.version( test_version );
