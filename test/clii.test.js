@@ -101,7 +101,7 @@ describe('clii', function(){
       opt.fn = function(args){
         checkTestArgs(args, done);
       };
-      cli.runOption( 'test', test_args );
+      cli.runOption( opt, test_args );
     })
   })
   
@@ -144,14 +144,14 @@ describe('clii', function(){
         , testopt;
       
       args = cli.parse( test_args );
-      args.options.should.have.length(1);
+      args.matched.should.have.length(1);
       args.kwargs[0].should.equal( test_parsed.kwargs[0] );
       args.kwargs[1].should.equal( test_parsed.kwargs[1] );
       args.kwargs[2].should.equal( test_parsed.kwargs[2] );
       args.props.test.should.equal( test_parsed.props.test );
       args.unknowns[0].should.equal( test_parsed.unknowns[0] );
       
-      testopt = args.options[0].option;
+      testopt = args.matched[0].option;
       equalsTestOption(testopt, done);
     })
   })

@@ -4,11 +4,11 @@ var cli = require('../');
 
 function main (props, args) {
   console.log('.run()');
-  console.log('  name:',this.name());
-  console.log('  version:',this.version());
+  // console.log('  name:',this.name());
+  // console.log('  version:',this.version());
   console.log('  props:',props);
   console.log('  args:',args);
-  console.log('  this:',JSON.stringify(this,null,'  '));
+  // console.log('  this:',JSON.stringify(this,null,'  '));
 }
 
 console.log('\n','basic-chain ---------------------------------- ','\n');
