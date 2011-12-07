@@ -4,17 +4,23 @@
   
         $ clii -drc
         $ clii -dv
-  
+
+* argument tokens:
+
+        $ clii -abc Aa Bb Cc
+        
+  each property returns `true` instead of what was passed
+
 * named arguments: 
   
         $ clii watch
         $ clii files ./
 
 * docs
-* **examples**
+* more examples
 * npm publish
 
-### $ ./examples/basic -h
+### $ ./examples/basic-chain -h
 
 * prevent `undefined` help when passing `-h`
 

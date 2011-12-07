@@ -95,20 +95,20 @@ describe('clii', function(){
     })
   })
   
-  describe('#doOption()', function(){
+  describe('#runOption()', function(){
     it('should fire option callback', function(done){
       var opt = cli.getOption('test');
       opt.fn = function(args){
         checkTestArgs(args, done);
       };
-      cli.doOption( 'test', test_args );
+      cli.runOption( 'test', test_args );
     })
   })
   
-  /* TODO: come back to this
+  /* TODO: come back to this 
   describe('#main()', function(){
     it('should execute main function with args', function(done){
-      cli.main( function (props, args) {
+      cli.run( function (props, args) {
         console.log('calling main()');
         console.log('main() - props:', props);
         console.log('main() - args:', args);
@@ -138,12 +138,12 @@ describe('clii', function(){
   /*!
    * TODO: the following srsly a 1/2 ass test
    */
-  describe('#parseArgs()', function(){
+  describe('#parse()', function(){
     it('should parse the args', function(done){
       var args
         , testopt;
       
-      args = cli.parseArgs( test_args );
+      args = cli.parse( test_args );
       args.options.should.have.length(1);
       args.kwargs[0].should.equal( test_parsed.kwargs[0] );
       args.kwargs[1].should.equal( test_parsed.kwargs[1] );
