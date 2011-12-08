@@ -1,37 +1,20 @@
 # Todo
 
-* combined arguments support: 
-  
-        $ clii -drc
-        $ clii -dv
-
-* argument tokens:
-
-        $ clii -abc Aa Bb Cc
-        
-  each property returns `true` instead of what was passed
-
-* named arguments: 
-  
-        $ clii watch
-        $ clii files ./
+## General:
 
 * docs
-* more examples
-* npm publish
+* more examples _(always)_
+* publish to npm
 
-### $ ./examples/basic-chain -h
 
-* prevent `undefined` help when passing `-h`
+---
 
-        Usage: basic [options]
-        
-          -a, --one         the first option
-          -b, --two         the second option
-          -c, --three       the third option
-          -undefined, --four        the fourth option
-          -undefined, --five        undefined
-          -h, --help        this help menu
+### Named Options: 
+
+    $ clii watch
+    $ clii files ./
+
+---
 
 ## Tests
 
@@ -44,3 +27,9 @@
 * <del>#version()</del>
 * #main()
 * generally deeper testing, args stuff is iffy at best.
+
+---
+
+## API
+
+* drop `getOption()` and `runOption()` and rethink the entire `option` logic
