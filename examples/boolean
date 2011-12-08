@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+var cli = require('../');
+
+cli('boolean example')
+  .option('-a, --myopt  a boolean option')
+  .run( function (args) {
+    console.log('myopt = ', args.myopt);
+  })

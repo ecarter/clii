@@ -2,18 +2,13 @@
 
 var cli = require('../');
 
-function main (props, args) {
-  console.log('.run()');
-  // console.log('  name:',this.name());
-  // console.log('  version:',this.version());
-  console.log('  props:',props);
-  console.log('  args:',args);
-  // console.log('  this:',JSON.stringify(this,null,'  '));
+function main (opts, args) {
+  console.log(this.name(), 'v' + this.version(), '\n');
+  console.log('  opts:', opts);
+  console.log('  args:', args);
 }
 
-console.log('\n','basic-chain ---------------------------------- ','\n');
-
-cli('basic-chain example')
+cli('basic-chain')
   .version('0.0.1')
   .opt('-a, --one <string> [path]  the first option',
     function(args){ 

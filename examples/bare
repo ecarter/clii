@@ -2,4 +2,14 @@
 
 var cli = require('../');
 
-cli('bare bones cli').run()
+/**
+ * Bare CLI Example
+ * 
+ * This example is a bare implementation of `clii`.
+ * 
+ */
+
+cli('bare bones cli')
+  .run( function(){
+    console.log( this.name() );
+  })
