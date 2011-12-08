@@ -10,7 +10,7 @@ test_args = [ '-abc', '--test', '--unknown-option', 'kwarg1', 'kwarg2', 'kwarg3'
 
 test_menu = [
   "\n  Usage:  [options]\n\n"
-, "    -t, --test        this is a test option\n"
+, "    -t, --test      this is a test option\n"
 // , "    -h, --help        this help menu\n"
 ].join('');
 
