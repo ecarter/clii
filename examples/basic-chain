@@ -2,30 +2,24 @@
 
 var cli = require('../');
 
-function main (opts, args) {
-  console.log(this.name(), 'v' + this.version(), '\n');
-  console.log('  opts:', opts);
-  console.log('  args:', args);
-}
-
-cli('basic-chain')
+cli()
+  .name('basic-chain')
   .version('0.0.1')
-  .opt('-a, --one <string> [path]  the first option',
+  .option('-a, --one <string> [path]  the first option',
     function(args){ 
       console.log('one args:', JSON.stringify(args));
     })
-    
-  .opt('-b, --two [number]  the second option',
+  .option('-b, --two [number]  the second option',
     function(args){ 
       console.log('two args:', JSON.stringify(args));
     })
-    
-  .opt('-c, --three [arg1|arg2|arg3]  the third option',
+  .option('-c, --three [arg1|arg2|arg3]  the third option',
     function(args){ 
       console.log('three args:', JSON.stringify(args));
     })
-    
-  .opt('--four  the fourth option')
-  .opt('--five')
-  
-  .run(main)
+  .option('--four  the fourth option')
+  .option('--five')
+  .run( function (opts, args) {
+    console.log('  opts:', opts);
+    console.log('  args:', args);
+  })

@@ -9,7 +9,7 @@ var cli = require('../');
  * 
  */
 
-cli('bare bones cli')
+cli()
   .run( function(){
-    console.log( this.name() );
+    console.log('running...');
   })

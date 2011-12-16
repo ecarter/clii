@@ -2,8 +2,10 @@
 
 var cli = require('../');
 
-cli('boolean example')
+cli()
+  .name('boolean example')
   .option('-a, --myopt  a boolean option')
   .run( function (args) {
+    console.log(args);
     console.log('myopt = ', args.myopt);
   })
