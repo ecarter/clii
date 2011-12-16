@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+var cli = require('../');
+
+cli('my-cli v0.0.1')
+  .option('-a, --my-option  this is my option')
+  .run( function (opts, params){
+    console.log(opts);
+    console.log('my option = ', opts.myOption);
+  })

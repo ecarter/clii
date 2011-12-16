@@ -4,6 +4,15 @@ a simple command line interface toolkit
 
 ---
 
+## Requires
+
+* [Node.js](http://nodejs.org)
+* [npm - Node Package Manager](http://npmjs.org)
+
+## Dependencies
+
+* [Mocha](http://visionmedia.github.com/mocha) _(tests only)_
+
 ## Install
 
 via [github](http://github.com/ecarter/clii):
@@ -14,15 +23,24 @@ via [github](http://github.com/ecarter/clii):
 
 ## Test
 
-    $ npm test
+    $ mocha
 
 ---
 
-## Examples
+# Examples
 
-### Creating a new CLI
+## Creating a new CLI
 
-_For this example we'll name our file `mycli`_
+### Create a new file named "my-cli" _(anywhere, just somewhere you can quickly shell/terminal into)_.
+
+### Set permissions on the file so we can execute it:
+
+In terminal:
+
+    $ cd .                # directory where you created file
+    $ chmod a+x my-cli    # sets executable permissions
+
+### Open the file in your favorite editor and make the following additions:
 
 First, add the node [shebang](http://en.wikipedia.org/wiki/Shebang_%28Unix%29) 
 line and include `clii` in your script:
@@ -31,49 +49,138 @@ line and include `clii` in your script:
     
     var cli = require('clii');
 
-Giving your CLI a name:
+Give it a name:
 
     cli('your cli name')
 
-The `.run()` method will initialze your CLI:
+Or + a version number:
 
-    cli('my cli').run()
+    cli('my-cli v0.0.1')
+    
+    // name[space]vX.X.X
 
-Now in terminal run:
+Add the `.run()` function to parse the arguments, and execute
+a `main` callback:
 
-    $ ./mycli
+In js:
 
-This won't do anything just yet because we haven't defined
-a `run function`, which is just a callback executed once `clii`
-initializes your interface.
+    cli('my-cli v0.0.1').run()
 
-To make your cli actually do something just pass a `function` to `.run()`
+In terminal run:
 
-    cli('your cli name')
+    $ ./my-cli
+    
+      Usage: my-cli
+
+        -h, --help     this help menu
+        -v, --version  show version number
+
+Doesn't do a whole lot just yet but we've gotten a basic CLI tool
+with `-h, --help` _(automatically added unless `.help(false)` is 
+specified)_ and `-v, --version` _(added because of 
+`.cli('my-cli v0.0.1')` is passed in the setup params)_.
+
+Do something more interesting, pass a callback `function` to `.run()`
+
+In js:
+
+    cli('my-cli v0.0.1')
       .run( function () { 
-        console.log( this.name() );
+        console.log( 'ಠ_ಠ programming is hard, really long and hard.' );
       })
 
-Now, running cli should result in:
+In terminal:
 
-    $ ./mycli
-      
-      my cli name
+    $ ./my-cli
+    
+    ಠ_ಠ programming is hard, really long and hard.
+
+## Passing arguments
+
+The `.run()` callback passes back some arguments, 
+`options`, `parameters`, or in this case `opts` and
+`params`.
+
+Starting with parameters:
 
 
-### Adding Options
+In js:
 
-Let's make our example usable by giving it some **options** with `.option()`.
+    cli('my-cli v0.0.1')
+      .run( function (opts, params){
+        console.log( "opts:", opts );
+        console.log( "params:", params );
+      })
 
-    cli('my cli')
-      .option('--myopt')
-      .run( function (args) {
-        console.log('myopt = ', args.myopt);
+In $:
+
+    $ ./my-cli one two three
+    
+    opts: {}
+    params: [ 'one', 'two', 'three' ]
+
+
+## Adding Options
+
+Let's make our example usable by with `.option()`
+
+    cli('my-cli v0.0.1')
+      .option('--my-option')
+      .run( function (opts) {
+        console.log('my option =', opts.myOption);
       })
 
 Run it:
 
-    $ ./mycli
+    $ ./my-cli --my-option
+    
+    my option = true
+
+or if you wanted a false value:
+
+    $ ./my-cli --no-my-option
+    
+    my option = false
+
+### Option Properties
+
+**Alias**
+
+A single a-z A-Z character representing shortcut to a `option`.
+
+    -a -b -c -D -F -G
+
+Example:
+
+    .option('-a, --my-option')
+              ↑
+            alias
+
+**Option Name**
+
+    .option('-a, --my-option')
+                   ↑
+                  name
+
+**Parameters**
+
+**Required < >**
+
+    .option('-a, --my-option <param>')
+                                ↑
+                            required
+
+**Optional [ ]**
+
+    .option('-a, --my-option [param]')
+                                ↑
+                            optional
+
+**Description**
+
+    .option('-a, --my-option  this is my option')
+                            ↑↑
+                          2 spaces
 
 Example with `optional`, `required`, and a `true|false` boolean options:
 
