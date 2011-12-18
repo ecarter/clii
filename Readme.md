@@ -1,6 +1,8 @@
-# clii
+# Clii
 
-a simple command line interface toolkit
+A <u>command line interface</u> style argument parser
+
+for [Node.js](http://nodejs.org) and the browser.
 
 ---
 
@@ -27,13 +29,11 @@ via [github](http://github.com/ecarter/clii):
 
 ---
 
-# Examples
-
-## Creating a new CLI
+# Creating a new CLI
 
 ### Create a new file named "my-cli" _(anywhere, just somewhere you can quickly shell/terminal into)_.
 
-### Set permissions on the file so we can execute it:
+First, set permissions on the file so we can execute it.
 
 In terminal:
 
@@ -42,7 +42,7 @@ In terminal:
 
 ### Open the file in your favorite editor and make the following additions:
 
-First, add the node [shebang](http://en.wikipedia.org/wiki/Shebang_%28Unix%29) 
+Add the node [shebang](http://en.wikipedia.org/wiki/Shebang_%28Unix%29) 
 line and include `clii` in your script:
 
     #!/usr/bin/env node
@@ -80,7 +80,7 @@ with `-h, --help` _(automatically added unless `.help(false)` is
 specified)_ and `-v, --version` _(added because of 
 `.cli('my-cli v0.0.1')` is passed in the setup params)_.
 
-Do something more interesting, pass a callback `function` to `.run()`
+### Do something more interesting, pass a callback `function` to `.run()`
 
 In js:
 
@@ -101,8 +101,9 @@ The `.run()` callback passes back some arguments,
 `options`, `parameters`, or in this case `opts` and
 `params`.
 
-Starting with parameters:
-
+There are two primary ways of defining options, either with a 
+`option` setup __string__ or __object__. The following examples 
+will show how to use both.
 
 In js:
 
@@ -112,7 +113,7 @@ In js:
         console.log( "params:", params );
       })
 
-In $:
+In terminal:
 
     $ ./my-cli one two three
     
@@ -122,7 +123,10 @@ In $:
 
 ## Adding Options
 
-Let's make our example usable by with `.option()`
+Let's make the example more useful by adding some
+options with the `.option()` method.
+
+
 
     cli('my-cli v0.0.1')
       .option('--my-option')
@@ -130,79 +134,128 @@ Let's make our example usable by with `.option()`
         console.log('my option =', opts.myOption);
       })
 
-Run it:
+Pass `--my-option` and run it:
 
     $ ./my-cli --my-option
     
     my option = true
 
-or if you wanted a false value:
+or for `false` prefix with `--no-`:
 
     $ ./my-cli --no-my-option
     
     my option = false
 
-### Option Properties
+## Option Properties
 
-**Alias**
+### Alias:
 
-A single a-z A-Z character representing shortcut to a `option`.
+An alias can be single a-z|A-Z character prefixed with `-` that
+provide a convenience shortcut to an `option`. _eg. `-a -b -A -B`_
 
-    -a -b -c -D -F -G
+Specifying an alias in the `option` setup string:
 
-Example:
-
-    .option('-a, --my-option')
+    .option('-a')
               ↑
             alias
 
-**Option Name**
+As a `option` setup object:
+  
+    .option({ alias: 'a' })
+
+### Name:
+  
+  Setup `String`:
 
     .option('-a, --my-option')
-                   ↑
-                  name
+                   ↑       ↑
+                      name
 
-**Parameters**
+  Setup `Object`:
 
-**Required < >**
+    .option({ alias: 'a', name: 'my-option' })
+
+### Parameters:
+
+**Required  < >**
 
     .option('-a, --my-option <param>')
-                                ↑
-                            required
+                             ↑     ↑
+                             required
 
-**Optional [ ]**
+**Optional  [ ]**
 
     .option('-a, --my-option [param]')
-                                ↑
-                            optional
+                             ↑     ↑
+                             optional
 
-**Description**
+**Parameter Lists**
+
+  Lists come into play when you need to specify an 
+  option has several values to choose from.
+  
+  Use the `|` pipe symbol to separate the options:
+  
+  Required:
+  
+    .option('-a, --my-option <one|two|three>')
+                             ↑             ↑
+                              required list
+
+  Optional:
+
+    .option('-a, --my-option [one|two|three]')
+                             ↑             ↑
+                              optional list
+
+### Description
 
     .option('-a, --my-option  this is my option')
-                            ↑↑
-                          2 spaces
+                            ↑↑                ↑
+                         2 spaces + description
 
-Example with `optional`, `required`, and a `true|false` boolean options:
+## Option Types
 
-    cli('my cli')
-      .option("-a, --one [arg1]  option with optional parameter")
-      .option("-b, --two <arg2>  option required parameter")
-      .option("--three  option with boolean parameter")
-      .run( function(args) {
-        console.log( 'one = ', args.one );
-        console.log( 'two = ', args.two );
-        console.log( 'three = ', args.three );
+Any argument without parameters specific with < > or [ ] 
+is considered a boolean argument.
+
+Boolean options actually come back with three possible values 
+being `true`, `false`, or `undefined`.
+
+* `true` when `-a` or `--my-option` is passed
+* `false` when `-no-a` or `--no-my-option` is passed
+* `undefined` when none of the previous are passed
+
+Update `my-cli` with following:
+
+    cli('my-cli v0.0.1')
+      .option('-a, --my-option  this is my option')
+      .run( function (opts, params){
+        // when true
+        if ( opts.myOption === true ) {
+          console.log('has option!');
+        // when false
+        } else if ( opts.myOption === false ) {
+          console.log('no option.');
+        // when everthing else, like undefined
+        } else {
+          console.log('option is', opts.myOption);
+        }
       })
+
+_**More to come...**_
 
 ---
 
 
 #### Similar Projects
 
-If `clii` doesn't fit your needs be sure to checkout:
+[Clii](http://github.com/ecarter/clii)'s API is heavily influenced by [TJ Holowaychuk
+](https://github.com/visionmedia/)'s awesome utility [commander.js](https://github.com/visionmedia/commander.js/). 
 
-* [node-optimist](https://github.com/substack/node-optimist)
-* [commander.js](https://github.com/visionmedia/commander.js/)
+While Clii solves many of the same problems it handles all of them in experimental and
+openly "non-commercial" manor. If you're looking for a more battle hardened solution,
+I fully suggest _(and personally use)_ [commander.js](https://github.com/visionmedia/commander.js/).
 
 ---
 

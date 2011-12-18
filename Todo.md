@@ -23,6 +23,8 @@ Basically all the tests are via the API, which
 doesn't really account for how a CLI is being 
 used in terminal/shell/matrix, whatever... f-u.
 
+---
+
 ### Option-less Name Parameters
 
     $ ./mycli p1 p2 p3 p4
@@ -36,11 +38,13 @@ pseudo code for the that:
     function onRun (p1, p2, p3, p4) { // << this
       console.log( argurments );
     }
-    cli.run( onRun ); 
+    cli.option('--my-option', onRun ); 
 
 ---
 
 ## API
+
+file-by-file
 
 ### clii.js
 
