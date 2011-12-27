@@ -52,10 +52,6 @@ file-by-file
 * ln124: examples,docs???
 * ln205: remove extended String native
 
-### match.js
-
-* <del>ln159: where is --no-option (boolean false options) ???</del>
-
 ### option.js
 
 * ln38: setup object validation?
