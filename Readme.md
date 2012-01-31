@@ -4,7 +4,9 @@ A <u>command line interface</u> style argument parser
 
 for [Node.js](http://nodejs.org) and the browser.
 
+
 ---
+
 
 ## Requires
 
@@ -27,7 +29,9 @@ via [github](http://github.com/ecarter/clii):
 
     $ mocha
 
+
 ---
+
 
 # Creating a new CLI
 
@@ -243,12 +247,11 @@ Update `my-cli` with following:
         }
       })
 
-_**More to come...**_
 
 ---
 
 
-#### Similar Projects
+### Inspired By:
 
 [Clii](http://github.com/ecarter/clii)'s API is heavily influenced by [TJ Holowaychuk
 ](https://github.com/visionmedia/)'s awesome utility [commander.js](https://github.com/visionmedia/commander.js/). 
@@ -257,7 +260,9 @@ While Clii solves many of the same problems it handles all of them in experiment
 openly "non-commercial" manor. If you're looking for a more battle hardened solution,
 I fully suggest _(and personally use)_ [commander.js](https://github.com/visionmedia/commander.js/).
 
+
 ---
+
 
 **MIT License**
 

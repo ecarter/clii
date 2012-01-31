@@ -49,8 +49,7 @@ file-by-file
 ### clii.js
 
 * ln48: Better regex for checking version string
-* ln124: examples,docs???
-* ln205: remove extended String native
+* ln124: examples, docs???
 
 ### option.js
 
