@@ -1,7 +1,6 @@
-
-var Clii = require('../');
-
-describe('Clii.prototype.run()', function(){
+describe('#run()', function(){
+  
+  var Clii = require('../');
   
   it('should execute run function', function(done){
     (new Clii()).run(function(){

@@ -1,10 +1,11 @@
-
-var cli = require('../').Clii;
-
-describe('Clii.match()', function(){
+describe('.match()', function(){
+  
+  var Clii = require('../');
   
   it('should respond to Clii.match()', function(){
-    cli.should.respondTo('match');
+    Clii.should.respondTo('match');
   })
-  
 })
+
+// TODO: actual tests
+

@@ -1,53 +1,57 @@
-
-var cli = require('../')({help:false});
-
-var options = [
-  {
-    alias: 'a'
-  , name: 'a'
-  , type: 'option'
-  },
-  {
-    alias: 'b'
-  , name: 'option-name-b'
-  , type: 'option'
-  },
-  {
-    alias: 'c'
-  , name: 'option-name-c'
-  , type: 'option'
-  , params: [{ required: false, name: 'option' }]
-  },
-  {
-    alias: 'd'
-  , name: 'option-name-d'
-  , type: 'option'
-  , params: [{
-      required: false,
-      options: [ 'opt1', 'opt2', 'opt3' ]
-    }]
-  },
-  {
-    alias: 'e'
-  , name: 'option-name-e'
-  , type: 'option'
-  , params: [{
-      required: true
-    , options: [ 'req1', 'req2', 'req3' ]
-    }]
-  },
-  {
-    type: 'keyword'
-  , name: 'keyword-name'
-  },
-  {
-    type: 'keyword'
-  , name: 'keyword-name'
-  , params: [ { required: false, name: 'optional' } ]
-  }
-];
-
-describe('Clii.prototype.option()', function(){
+describe('#option()', function(){
+  
+  var Clii = require('../');
+  
+  var cli
+    , options
+  
+  cli = Clii({ help:false });
+  
+  options = [
+    {
+      alias: 'a'
+    , name: 'a'
+    , type: 'option'
+    },
+    {
+      alias: 'b'
+    , name: 'option-name-b'
+    , type: 'option'
+    },
+    {
+      alias: 'c'
+    , name: 'option-name-c'
+    , type: 'option'
+    , params: [{ required: false, name: 'option' }]
+    },
+    {
+      alias: 'd'
+    , name: 'option-name-d'
+    , type: 'option'
+    , params: [{
+        required: false,
+        options: [ 'opt1', 'opt2', 'opt3' ]
+      }]
+    },
+    {
+      alias: 'e'
+    , name: 'option-name-e'
+    , type: 'option'
+    , params: [{
+        required: true
+      , options: [ 'req1', 'req2', 'req3' ]
+      }]
+    },
+    {
+      type: 'keyword'
+    , name: 'keyword-name'
+    },
+    {
+      type: 'keyword'
+    , name: 'keyword-name'
+    , params: [ { required: false, name: 'optional' } ]
+    }
+  ];
   
   it('should equal alias', function(){
     cli.option('-a')
