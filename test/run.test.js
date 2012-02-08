@@ -3,13 +3,13 @@ describe('#run()', function(){
   var Clii = require('../');
   
   it('should execute run function', function(done){
-    (new Clii()).run(function(){
+    Clii().run(function(){
       done();
     });
   })
   
   it('should return options boolean values', function(done){
-    (new Clii())
+    Clii()
       .option('-a, --option1')
       .option('-b, --option2')
       .run(function(opts,args){
@@ -20,7 +20,7 @@ describe('#run()', function(){
   })
   
   it('should return options with argument', function(done){
-    (new Clii())
+    Clii()
       .option('-a, --option1 <arg1>')
       .option('-b, --option2 <arg2>')
       .run(function(opts,args){
@@ -31,7 +31,7 @@ describe('#run()', function(){
   })
   
   it('should return options with argument', function(done){
-    (new Clii())
+    Clii()
       .option('-a, --option1 <arg1>')
       .option('-b, --option2 <arg2>')
       .run(function(opts,args){
@@ -42,7 +42,7 @@ describe('#run()', function(){
   })
   
   it('should return options with argument', function(done){
-    (new Clii())
+    Clii()
       .option('-a, --option1 <arg1>')
       .option('-b, --option2 <arg2>')
       .option('-c, --option3 <arg3>')
@@ -55,7 +55,7 @@ describe('#run()', function(){
   })
   
   it('should return options with argument', function(done){
-    (new Clii())
+    Clii()
       .option('-a, --option1 <arg1> [arg2]')
       .option('-b, --option2 <arg3> [arg4]')
       .run(function(opts,args){

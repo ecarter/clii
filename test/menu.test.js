@@ -36,15 +36,12 @@ describe('#menu()', function(){
   
   it('should auto-add -h, --help to menu', function(){
     Clii('test-cli').help(true).menu()
-      .should.eql( '\n  Usage: test-cli\n\n' +
-      '    -h, --help  this help menu\n' );
+      .should.eql('\n  Usage: test-cli\n\n    -h, --help  this help menu\n');
   })
   
   it('should auto-add -v, --version to menu', function(){
     Clii('test-cli v0.0.0').version('0.0.0').help(true).menu()
-      .should.eql( '\n  Usage: test-cli\n\n' +
-      '    -h, --help     this help menu\n' +
-      '    -v, --version  show version number\n' );
+      .should.eql('\n  Usage: test-cli\n\n    -h, --help     this help menu\n    -v, --version  show version number\n');
   })
   
 })

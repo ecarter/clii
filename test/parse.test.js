@@ -1,34 +1,34 @@
-describe('.parse()', function(){
+describe('#parse()', function(){
   
   var Clii = require('../');
   
   it('should respond to Clii.parse()', function(){
-    Clii.should.respondTo('parse');
+    Clii().should.respondTo('parse');
   })
 
   it('should return parsed -a', function(){
-    Clii.parse('-a').should.eql([{
+    Clii().parse('-a').should.eql([{
       args: [ '-a' ],
       params: []
     }])
   })
 
   it('should return parsed --option-name', function(){
-    Clii.parse('--option-name').should.eql([{
+    Clii().parse('--option-name').should.eql([{
       args: [ '--option-name' ],
       params: []
     }])
   })
 
   it('should return parsed -abc one two three', function(){
-    Clii.parse('-abc one two three').should.eql([{
+    Clii().parse('-abc one two three').should.eql([{
       args: [ '-a', '-b', '-c' ]
     , params: [ 'one', 'two', 'three' ]
     }])
   })
 
   it('should return parsed -AB one two -CD three four', function(){
-    Clii.parse('-AB one two -CD three four').should.eql([
+    Clii().parse('-AB one two -CD three four').should.eql([
       {
         args: [ '-A', '-B' ]
       , params: [ 'one', 'two' ]
@@ -41,7 +41,7 @@ describe('.parse()', function(){
   })
 
   it('should return parsed -AB one two three four -CD five six', function(){
-    Clii.parse('-AB one two three four -CD five six').should.eql([
+    Clii().parse('-AB one two three four -CD five six').should.eql([
       {
         args: [ '-A', '-B' ]
       , params: [ 'one', 'two', 'three', 'four' ]
@@ -54,7 +54,7 @@ describe('.parse()', function(){
   })
 
   it('should return parsed --option1 param1 --option2 param2 param3 --option3 param4 param5 parma6', function(){
-    Clii.parse('--option1 param1 --option2 param2 param3 --option3 param4 param5 param6').should.eql(
+    Clii().parse('--option1 param1 --option2 param2 param3 --option3 param4 param5 param6').should.eql(
       [
         {
           args: [ '--option1' ]

@@ -3,7 +3,7 @@ describe('#token()', function(){
   var Clii = require('../');
   
   it('should return alias', function(){
-    Clii.token('-a').should.eql({
+    Clii().token('-a').should.eql({
       type: 'alias'
     , name: 'a'
     , prop: 'a'
@@ -12,7 +12,7 @@ describe('#token()', function(){
   })
   
   it('should return alias trailing comma -a,', function(){
-    Clii.token('-a,').should.eql({
+    Clii().token('-a,').should.eql({
       type: 'alias'
     , name: 'a'
     , prop: 'a'
@@ -21,7 +21,7 @@ describe('#token()', function(){
   })
   
   it('should return alias-list', function(){
-    Clii.token('-ab').should.eql({
+    Clii().token('-ab').should.eql({
       type: 'alias-list'
     , name: 'ab'
     , prop: 'ab'
@@ -31,7 +31,7 @@ describe('#token()', function(){
   })
   
   it('should return option', function(){
-    Clii.token('--option-name').should.eql({
+    Clii().token('--option-name').should.eql({
       type: 'option'
     , name: 'option-name'
     , prop: 'optionName'
@@ -40,7 +40,7 @@ describe('#token()', function(){
   })
   
   it('should return option-false', function(){
-    Clii.token('--no-option-name').should.eql({
+    Clii().token('--no-option-name').should.eql({
       type: 'option-false'
     , name: 'option-name'
     , prop: 'optionName'
@@ -49,7 +49,7 @@ describe('#token()', function(){
   })
   
   it('should return optional', function(){
-    Clii.token('[optional-arg]').should.eql({
+    Clii().token('[optional-arg]').should.eql({
       type: 'optional'
     , name: 'optional-arg'
     , prop: 'optionalArg'
@@ -58,7 +58,7 @@ describe('#token()', function(){
   })
   
   it('should return optional-list', function(){
-    Clii.token('[yes|no]').should.eql({
+    Clii().token('[yes|no]').should.eql({
       type: 'optional-list'
     , name: 'yes no'
     , options: [ 'yes', 'no' ]
@@ -68,7 +68,7 @@ describe('#token()', function(){
   })
   
   it('should return required', function(){
-    Clii.token('<required-arg>').should.eql({
+    Clii().token('<required-arg>').should.eql({
       type: 'required'
     , name: 'required-arg'
     , prop: 'requiredArg'
@@ -77,7 +77,7 @@ describe('#token()', function(){
   })
   
   it('should return required-list', function(){
-    Clii.token('<yes|no>').should.eql({
+    Clii().token('<yes|no>').should.eql({
       type: 'required-list'
     , name: 'yes no'
     , options: [ 'yes', 'no' ]
@@ -87,7 +87,7 @@ describe('#token()', function(){
   })
   
   it('should return keyword', function(){
-    Clii.token('pancakes').should.eql({
+    Clii().token('pancakes').should.eql({
       type: 'keyword'
     , name: 'pancakes'
     , prop: 'pancakes'
@@ -96,7 +96,7 @@ describe('#token()', function(){
   })
   
   it('should return empty', function(){
-    Clii.token('').type.should.eql('empty');
+    Clii().token('').type.should.eql('empty');
   })
   
 })
