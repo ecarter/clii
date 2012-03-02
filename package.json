@@ -18,8 +18,5 @@
   "dependencies": {},
   "devDependencies": {
     "mocha": ">=0.3.1"
-  , "stylus": ">=0.24.0"
-  , "nib": ">=0.3.2"
-  , "bldr": "git+ssh://git@github.com:ecarter/bldr.git"
   }
 }
