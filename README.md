@@ -1,161 +1,161 @@
 # Clii
 
-A <u>command line interface</u> style argument parser
-
-for [Node.js](http://nodejs.org) and the browser.
-
-
----
-
+> A simple command line interface utility.
 
 ## Requires
 
 * [Node.js](http://nodejs.org)
-* [npm - Node Package Manager](http://npmjs.org)
+* [NPM - Node Package Manager](http://npmjs.org)
 
 ## Dependencies
 
-* [Mocha](http://visionmedia.github.com/mocha) _(tests only)_
+_None._
 
 ## Install
 
 via [github](http://github.com/ecarter/clii):
 
-    $ git clone git@github.com:ecarter/clii.git
-    $ cd clii
-    $ npm install
+	$ git clone https://ecarter@github.com/ecarter/clii.git
+	$ cd clii
+	$ npm install
+	$ npm link -g
 
 ## Test
 
-    $ mocha
+Testing done with [Mocha](http://visionmedia.github.com/mocha)
 
+	$ make test
 
----
+<a id="getting-started"></a>
+## Getting Started
 
+Create a empty script file and set permissions so it is executable in a terminal / shell client:
 
-# Creating a new CLI
+	$ touch mytool        # create empty file
+	$ chmod +x mytool     # sets executable permissions
 
-### Create a new file named "my-cli" _(anywhere, just somewhere you can quickly shell/terminal into)_.
-
-First, set permissions on the file so we can execute it.
-
-In terminal:
-
-    $ cd .                # directory where you created file
-    $ chmod a+x my-cli    # sets executable permissions
-
-### Open the file in your favorite editor and make the following additions:
-
-Add the node [shebang](http://en.wikipedia.org/wiki/Shebang_%28Unix%29) 
-line and include `clii` in your script:
+Open the script file in your editor of choice and include the Node.js [shebang](http://en.wikipedia.org/wiki/Shebang_%28Unix%29) line and require `clii` in your script.
 
     #!/usr/bin/env node
-    
     var cli = require('clii');
 
-Give it a name:
+Define the Clii instance and give it a name.
 
-    cli('your cli name')
+    var mytool = cli('mytool');
 
-Or + a version number:
+Appending a version number follows a `name[space]vX.X.X` pattern.
 
-    cli('my-cli v0.0.1')
+    var mytool = cli('mytool v0.0.1')
     
-    // name[space]vX.X.X
+Add the `.run()` method to tell Clii to parse shell arguments passed to the script.
 
-Add the `.run()` function to parse the arguments, and execute
-a `main` callback:
+Script:
 
-In js:
+    cli('mytool v0.0.1').run()
 
-    cli('my-cli v0.0.1').run()
+Terminal:
 
-In terminal run:
-
-    $ ./my-cli
-    
-      Usage: my-cli
-
+    $ ./mytool
+      Usage: mytool
         -h, --help     this help menu
         -v, --version  show version number
 
-Doesn't do a whole lot just yet but we've gotten a basic CLI tool
-with `-h, --help` _(automatically added unless `.help(false)` is 
-specified)_ and `-v, --version` _(added because of 
-`.cli('my-cli v0.0.1')` is passed in the setup params)_.
+`help` and `version` options are added by default and easily removed.
 
-### Do something more interesting, pass a callback `function` to `.run()`
+Script:
 
-In js:
+    cli('mytool v0.0.1')
+      .help(false)          # disable usage menu option
+      .version(false)       # disable version option
+      .run()
 
-    cli('my-cli v0.0.1')
+Terminal:
+
+    $ ./mytool
+    $
+
+`.run()` excepts a callback, which is executed once Clii parses the script arguments.
+
+Script:
+
+    cli('mytool v0.0.1')
       .run( function () { 
         console.log( 'ಠ_ಠ programming is hard, really long and hard.' );
       })
 
-In terminal:
+Terminal:
 
-    $ ./my-cli
-    
+    $ ./mytool
     ಠ_ಠ programming is hard, really long and hard.
 
-## Passing arguments
+## Options & Arguments
 
-The `.run()` callback passes back some arguments, 
-`options`, `parameters`, or in this case `opts` and
-`params`.
+The `.run()` callback is given two arguments, `options` and `args`.
 
-There are two primary ways of defining options, either with a 
-`option` setup __string__ or __object__. The following examples 
-will show how to use both.
+Script:
 
-In js:
-
-    cli('my-cli v0.0.1')
-      .run( function (opts, params){
-        console.log( "opts:", opts );
-        console.log( "params:", params );
+    cli('mytool v0.0.1')
+      .run( function ( options, args ) {
+        console.log( "options: " + options );
+        console.log( "args: " + args );
       })
 
-In terminal:
+Terminal:
 
-    $ ./my-cli one two three
-    
-    opts: {}
-    params: [ 'one', 'two', 'three' ]
+    $ ./mytool one two three
+    options: {}
+    args: [ 'one', 'two', 'three' ]
 
+`options` argument is a `Object` literal containing property names for defined options. For example `--my-option` would be returned as `options.myOption` with a value of `true`. Values are assigned when options are matched from the arguments passed to the script via the shell.
 
-## Adding Options
+`args` is an `Array` of all arguments that were **not** required by one of the `options`.
 
-Let's make the example more useful by adding some
-options with the `.option()` method.
+## Options
 
+`.option()` accepts a specially formatted `String` or a `Object` literal. String should be formatted `-a, --name  description`. 
 
+Option properties:
 
-    cli('my-cli v0.0.1')
+* [alias](#option-alias) `-` proceeded by any single alphanumeric character followed by `, ` comma space
+* [name](#option-name) `--option-name` Case does not matter however only `-` can be used as a word separator. 
+* [params](#option-params) `[optional]` or `<required>` parameters
+* [description](#option-description) two or more spaces followed by the option usage text
+
+### Creating a new `Option`
+ 
+Example `String` option setup
+
+    .option('-a, --my-option  My awesome option')
+
+Example `Object` option setup
+
+    .option({ 
+      alias: 'a', 
+      name: 'my-option', 
+      description: 'My awesome option'
+    })
+
+Option names that use a dash `-` are converted to camel case when returned to the `.run()` callback's `options` argument.
+
+Script:
+
+    cli('mytool v0.0.1')
       .option('--my-option')
-      .run( function (opts) {
-        console.log('my option =', opts.myOption);
+      .run( function ( options ) {
+        console.log( 'my option = ' + options.myOption );
       })
 
-Pass `--my-option` and run it:
+Terminal:
 
-    $ ./my-cli --my-option
-    
+    $ ./mytool --my-option
     my option = true
-
-or for `false` prefix with `--no-`:
-
-    $ ./my-cli --no-my-option
-    
-    my option = false
 
 ## Option Properties
 
-### Alias:
+<a id="option-alias"></a>
+### Alias 
 
-An alias can be single a-z|A-Z character prefixed with `-` that
-provide a convenience shortcut to an `option`. _eg. `-a -b -A -B`_
+An `alias`, more commonly known as a flag, can be single a-z | A-Z character prefixed with `-`.
 
 Specifying an alias in the `option` setup string:
 
@@ -167,8 +167,9 @@ As a `option` setup object:
   
     .option({ alias: 'a' })
 
-### Name:
-  
+<a id="option-name"></a>
+### Name
+
   Setup `String`:
 
     .option('-a, --my-option')
@@ -179,7 +180,13 @@ As a `option` setup object:
 
     .option({ alias: 'a', name: 'my-option' })
 
-### Parameters:
+Name options can prefix with `--no` to equal `false`
+
+    $ ./mytool --no-my-option
+    my option = false
+
+<a id="option-param"></a>
+### Parameters
 
 **Required  < >**
 
@@ -193,95 +200,39 @@ As a `option` setup object:
                              ↑     ↑
                              optional
 
-**Parameter Lists**
+#### Parameter Lists
 
-  Lists come into play when you need to specify an 
-  option has several values to choose from.
+Lists come into play when you need to specify an option has several values to choose from.
   
-  Use the `|` pipe symbol to separate the options:
+Use the `|` pipe symbol to separate the options:
   
-  Required:
+Required:
   
     .option('-a, --my-option <one|two|three>')
                              ↑             ↑
                               required list
 
-  Optional:
+Optional:
 
     .option('-a, --my-option [one|two|three]')
                              ↑             ↑
                               optional list
 
+<a id="option-description"></a>
 ### Description
 
     .option('-a, --my-option  this is my option')
                             ↑↑                ↑
                          2 spaces + description
 
-## Option Types
+## Licensing
 
-Any argument without parameters specific with < > or [ ] 
-is considered a boolean argument.
+> MIT License
+> 
+> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+> 
+> The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+> 
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-Boolean options actually come back with three possible values 
-being `true`, `false`, or `undefined`.
-
-* `true` when `-a` or `--my-option` is passed
-* `false` when `-no-a` or `--no-my-option` is passed
-* `undefined` when none of the previous are passed
-
-Update `my-cli` with following:
-
-    cli('my-cli v0.0.1')
-      .option('-a, --my-option  this is my option')
-      .run( function (opts, params){
-        // when true
-        if ( opts.myOption === true ) {
-          console.log('has option!');
-        // when false
-        } else if ( opts.myOption === false ) {
-          console.log('no option.');
-        // when everthing else, like undefined
-        } else {
-          console.log('option is', opts.myOption);
-        }
-      })
-
-
----
-
-
-### Inspired By:
-
-[Clii](http://github.com/ecarter/clii)'s API is heavily influenced by [TJ Holowaychuk
-](https://github.com/visionmedia/)'s awesome utility [commander.js](https://github.com/visionmedia/commander.js/). 
-
-While Clii solves many of the same problems it handles all of them in experimental and
-openly "non-commercial" manor. If you're looking for a more battle hardened solution,
-I fully suggest _(and personally use)_ [commander.js](https://github.com/visionmedia/commander.js/).
-
-
----
-
-
-**MIT License**
-
-Copyright (C) 2011 by **Erin Carter** ( [hi@dnvsfn.com](mailto:hi@dnvsfn.com) )
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+_Copyright (C) 2012 Erin Carter <hi@dnvsfn.com> ( <http://github.com/ecarter> )_
