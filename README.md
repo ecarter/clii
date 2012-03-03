@@ -9,30 +9,29 @@
 
 ## Dependencies
 
-_None._
+> _None._
 
 ## Install
 
 via [github](http://github.com/ecarter/clii):
 
-	$ git clone https://ecarter@github.com/ecarter/clii.git
-	$ cd clii
-	$ npm install
-	$ npm link     #optional 
+    $ git clone https://ecarter@github.com/ecarter/clii.git
+    $ cd clii && npm install
+    $ npm link    # optional 
 
 ## Test
 
 Testing done with [Mocha](http://visionmedia.github.com/mocha)
 
-	$ make test
+    $ npm test
 
 <a id="getting-started"></a>
 ## Getting Started
 
 Create a empty script file and set permissions so it is executable in a terminal / shell client:
 
-	$ touch mytool        # create empty file
-	$ chmod +x mytool     # sets executable permissions
+    $ touch mytool        # create empty file
+    $ chmod +x mytool     # sets executable permissions
 
 Open the script file in your editor of choice and include the Node.js [shebang](http://en.wikipedia.org/wiki/Shebang_%28Unix%29) line and require `clii` in your script.
 
