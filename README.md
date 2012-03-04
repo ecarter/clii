@@ -15,7 +15,7 @@
 
 via [github](http://github.com/ecarter/clii):
 
-    $ git clone https://ecarter@github.com/ecarter/clii.git
+    $ git clone https://github.com/ecarter/clii.git
     $ cd clii && npm install
     $ npm link    # optional 
 
