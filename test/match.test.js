@@ -9,8 +9,8 @@ describe('#match()', function(){
   it('should match option', function(done){
     Clii()
       .option('-a, --one')
-      .run(function (opts, args) {
-        opts.should.eql({ one: true });
+      .run(function (options, args) {
+        options.should.eql({ one: true });
         args.should.eql([]);
         done();
       }, '-a');
@@ -20,10 +20,10 @@ describe('#match()', function(){
     Clii()
       .option('-a, --one [param]')
       .run(function (opts, args) {
-        opts.should.eql({ one: 'test-value' });
-        args.should.eql(['test-value']);
+        opts.should.eql({ one: 'value' });
+        args.should.eql(['value']);
         done();
-      }, '-a test-value');
+      }, '-a value');
   })
   
 })
