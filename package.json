@@ -2,7 +2,7 @@
   "author": "Erin Carter <hi@dnvsfn.com> (http://github.com/ecarter)",
   "name": "clii",
   "description": "a simple command line interface toolkit",
-  "version": "0.0.1-alpha-2",
+  "version": "0.0.1-alpha-3",
   "homepage": "http://github.com/ecarter/clii",
   "repository": {
     "type": "git",
