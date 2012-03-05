@@ -25,7 +25,6 @@ Testing done with [Mocha](http://visionmedia.github.com/mocha)
 
     $ npm test
 
-<a id="getting-started"></a>
 ## Getting Started
 
 Create a empty script file and set permissions so it is executable in a terminal / shell client:
@@ -151,7 +150,6 @@ Terminal:
 
 ## Option Properties
 
-<a id="option-alias"></a>
 ### Alias 
 
 An `alias`, more commonly known as a flag, can be single a-z | A-Z character prefixed with `-`.
@@ -166,7 +164,6 @@ As a `option` setup object:
   
     .option({ alias: 'a' })
 
-<a id="option-name"></a>
 ### Name
 
   Setup `String`:
@@ -184,7 +181,6 @@ Name options can prefix with `--no` to equal `false`
     $ ./mytool --no-my-option
     my option = false
 
-<a id="option-param"></a>
 ### Parameters
 
 **Required  < >**
@@ -217,7 +213,6 @@ Optional:
                              ↑             ↑
                               optional list
 
-<a id="option-description"></a>
 ### Description
 
     .option('-a, --my-option  this is my option')
