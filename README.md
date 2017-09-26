@@ -21,7 +21,7 @@ via [github](http://github.com/ecarter/clii):
 
 ## Test
 
-Testing done with [Mocha](http://visionmedia.github.com/mocha)
+Testing done with [Mocha](http://mochajs.org/)
 
     $ npm test
 
